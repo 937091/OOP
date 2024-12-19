@@ -1,0 +1,96 @@
+Imagine a publishing company which does marketing for book and audio cassette versions. 
+Create a class publication that stores the title (a string) and price (type float) of publications.  
+From this class derive two classes: book which adds a page count (type int) and tape which adds 
+a playing time in minutes (type float). 
+Write a program that instantiates the book and tape class, allows user to enter data and displays 
+the data members. If an exception is caught, replace all the data member values with zero 
+values.
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+class publication
+{
+protected:
+float price;
+char str[20];
+
+	public:
+		void read()
+		{
+			cout<<"\n title";
+			cin>>str;
+			cout<<"\n price";
+			cin>>price;
+		}
+		void display()
+		{
+			cout<<"\n Title="<<str;
+			cout<<"\n price="<<price<<"Rs";
+		}
+		
+};
+class book:public publication
+{
+	int pagecount;
+	public:
+		void readp()
+		{   read();
+			cout<<"\n page count";
+			cin>>pagecount;
+		
+		try
+		{
+		if(pagecount<=0)
+		{throw 1;}
+		}
+		catch(int i)
+		{
+		    strcpy(str,"0");
+		    price=0;
+		    pagecount=0;
+		}
+	}
+		void displayp()
+		{   display();
+			cout<<"\n page count="<<pagecount;
+		}
+};
+class cassette:public publication
+{
+	float playtime;
+	public:
+		void readtime()
+		{   read();
+			cout<<"\n play time";
+			cin>>playtime;
+		
+		try
+		{
+	    if(playtime<=0)
+	    {throw 1;}
+		}
+		catch(int i)
+		{
+		    strcpy(str,"0");
+		    price=0;
+		    playtime=0;
+		}
+    }
+		void displaytime()
+		{   display();
+			cout<<"\n play time="<<playtime;
+		}
+};
+int main()
+{
+	book ob1;
+	cassette ob2;
+	cout<<"\n book information";
+	ob1.readp();
+	ob1.displayp();
+	cout<<"\n cassette information";
+	ob2.readtime();
+	ob2.displaytime();
+	
+}
