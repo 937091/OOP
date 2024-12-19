@@ -1,0 +1,86 @@
+Implement a class Complex which represents the Complex Number data type. Implement the 
+following 
+1. Constructor (including a default constructor which creates the complex number 0+0i). 
+2. Overload operator+ to add two complex numbers. 
+3. Overload operator* to multiply two complex numbers. 
+4. Overload operators << and >> to print and read Complex Numbers.
+
+include<iostream>
+using namespace std;
+class complex
+{
+
+
+	public:
+		int real;
+		int imag;
+		complex()
+		{
+			real=imag=0;
+		}
+		
+		complex operator +(complex c2)
+		{
+			complex c3;
+			c3.real=real+c2.real;
+			c3.imag=imag+c2.imag;
+			return c3;
+		}
+		complex operator *(complex c2)
+		{
+			complex c3;
+			c3.real=(real*c2.real)+(imag*c2.imag);
+			c3.imag=(real*c2.imag)+(imag*c2.real);
+			return c3;
+		}
+		friend istream& operator>>(istream& is, complex &c);
+		friend ostream& operator<<(ostream& os, complex c);
+		
+		
+};
+istream& operator >>(istream& is,complex &c)
+{
+is>>c.real>>c.imag;	
+}
+
+ostream& operator <<(ostream& os, complex c)
+{
+os<<c.real<<"+"<<c.imag<<"i";
+}
+
+int main()
+{
+	complex c1,c2,c3;
+	char choice;
+	int ch;
+	do
+	{
+		cout<<"\n1.read \n2.add \n3.multiply";
+		cout<<"\n enter your choice";
+		cin>>ch;
+		switch(ch)
+		{
+			case 1:cout<<"\n enter first complex number real & imag part";
+			       cin>>c1;
+			       cout<<"\n enter second complex number real & imag part";
+			       cin>>c2;
+			       break;
+			case 2:c3=c1+c2;
+			       cout<<"\n complex no.1"<<c1;
+			       cout<<"\n complex no.2"<<c2;
+			       cout<<"\n sum=";
+			       cout<<c3;
+			       break;
+			case 3:c3=c1*c2;
+			       cout<<"\n complex no.1"<<c1;
+			       cout<<"\n complex no.2"<<c2;
+			       cout<<"\n multi=";
+			       cout<<c3;
+			       break;
+			default:cout<<"wrong choice";
+		}
+		cout<<"\n do you want to continue (y/n)";
+		cin>>choice;
+	}while(choice=='y');
+	return 0;
+}
