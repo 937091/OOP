@@ -1,0 +1,48 @@
+#include <graphics.h>
+#include <iostream>
+using namespace std;
+
+// Function to draw a rectangle
+void drawRectangle(int x1, int y1, int x2, int y2, int color) {
+    setcolor(color);
+    rectangle(x1, y1, x2, y2);
+    floodfill((x1 + x2) / 2, (y1 + y2) / 2, color);
+}
+
+// Function to translate a rectangle
+void translateRectangle(int &x1, int &y1, int &x2, int &y2, int tx, int ty) {
+    x1 += tx;
+    y1 += ty;
+    x2 += tx;
+    y2 += ty;
+}
+
+int main() {
+    // Initialize graphics mode
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
+
+    // Original rectangle coordinates
+    int x1 = 100, y1 = 100, x2 = 200, y2 = 150;
+
+    // Draw original rectangle
+    cout << "Drawing the original rectangle...\n";
+    drawRectangle(x1, y1, x2, y2, WHITE);
+
+    // Translation values
+    int tx, ty;
+    cout << "Enter translation values (tx, ty): ";
+    cin >> tx >> ty;
+
+    // Apply translation
+    translateRectangle(x1, y1, x2, y2, tx, ty);
+
+    // Draw translated rectangle
+    cout << "Drawing the translated rectangle...\n";
+    drawRectangle(x1, y1, x2, y2, GREEN);
+
+    // Pause to view the result
+    getch();
+    closegraph();
+    return 0;
+}
