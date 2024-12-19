@@ -1,0 +1,59 @@
+#include <graphics.h>
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+// Function to perform rotation
+void rotateObject(int points[][2], int numPoints, float angle) {
+    float radian = angle * M_PI / 180.0; // Convert angle to radians
+    for (int i = 0; i < numPoints; i++) {
+        int x = points[i][0];
+        int y = points[i][1];
+        points[i][0] = round(x * cos(radian) - y * sin(radian));
+        points[i][1] = round(x * sin(radian) + y * cos(radian));
+    }
+}
+
+// Function to draw a 2D object
+void drawObject(int points[][2], int numPoints) {
+    for (int i = 0; i < numPoints; i++) {
+        line(points[i][0], points[i][1], points[(i + 1) % numPoints][0], points[(i + 1) % numPoints][1]);
+    }
+}
+
+int main() {
+    // Initialize graphics mode
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, (char*)"");
+
+    // Define the original object (triangle)
+    int points[3][2] = {{200, 200}, {250, 100}, {300, 200}};
+    int numPoints = 3;
+
+    // Draw the original object
+    setcolor(WHITE);
+    drawObject(points, numPoints);
+
+    // Pause to view the original object
+    delay(2000);
+
+    // Clear screen
+    cleardevice();
+
+    // Rotate the object
+    float angle;
+    cout << "Enter rotation angle (in degrees): ";
+    cin >> angle;
+    rotateObject(points, numPoints, angle);
+
+    // Draw the rotated object
+    setcolor(YELLOW);
+    drawObject(points, numPoints);
+
+    // Pause to view the rotated object
+    delay(5000);
+
+    // Close graphics mode
+    closegraph();
+    return 0;
+}
