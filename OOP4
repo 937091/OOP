@@ -1,0 +1,102 @@
+Write a C++ program that creates an output file, writes information to it, closes the file, open it 
+again as an input file and read the information from the file. 
+
+#include<iostream>
+#include<fstream>
+using namespace std;
+class employee
+ {
+ 	public:
+ 	int id,salary;
+ 	char name[10];
+	
+		void read()
+		{
+			cout<<"Enter the name";
+			cin>>name;
+			cout<<"\n Enter the id";
+			cin>>id;
+			cout<<"\n Enter the salary";
+			cin>>salary;
+		}
+		void display()
+		{
+			cout<<"\n Name of employee="<<name;
+			cout<<"\n id of employee="<<id;
+			cout<<"\n Salary of employee="<<salary;
+			
+		}
+ 		
+ };
+ int main()
+ {
+ 	employee e;
+	ofstream fout;
+    ifstream fin;
+	char choice;
+	int ch,a,n,i;
+    int flag;
+	do
+	{   cout<<"\n 1.Write data \n 2.append data \n 3.read data \n 4.search data";
+		cout<<"\n Enter the your choice";
+		cin>>ch;
+		switch(ch)
+		{
+			case 1: fout.open("employee.txt", ios::out); 
+                cout << "Enter the number of employee data you want to write: ";
+                cin >> n;
+                for (i = 0; i < n; i++) 
+				{
+                    e.read();
+                    fout.write((char*)&e, sizeof(e));
+                    
+                }
+                fout.close();
+                break;
+				
+			case 2:fout.open("employee.txt", ios::app); 
+                    e.read();
+                    fout.write((char*)&e, sizeof(e));
+                            
+			    	fout.close();
+                    break;
+			case 3: cout << "\nReading data from file:\n";
+                fin.open("employee.txt");
+                while (fin.read((char*)&e, sizeof(e)))
+                {
+				    e.display();
+                }
+                fin.close();
+                break;
+					
+			case 4: 
+			    cout<<"\n Enter  id to search";
+			    cin>>a;
+                flag=0;
+                fin.open("employee.txt");
+                while (fin)
+                {
+                	fin.read((char*)&e, sizeof(e));
+                	if(e.id==a)
+                	{
+					cout<<"\nfound";
+				    e.display();
+				    flag=1;
+				    break;
+				   }
+                }
+                if(flag==0)
+                {
+                   cout<<"\n id not found";
+                }
+                fin.close();    
+                break;
+           default: cout<<"\n Your choice is wrong";
+		}
+		cout<<"\nDo you want to continue ";
+		cin>>choice;			
+	}
+	while(choice=='y');
+	return 0;
+		
+}
